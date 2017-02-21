@@ -15,8 +15,8 @@ _.last = function(arr, n) {
 _.each = function(list, fun) {
   var i = 0;
 
-  if(Array.isArray(list)) {
-    for(i; i < list.length; i++) {
+  if (Array.isArray(list)) {
+    for (i; i < list.length; i++) {
       fun(list[i], i, list);
     }
   } else {
@@ -34,8 +34,8 @@ _.indexOf = function(arr, value, isSorted) {
   var i = 0,
       res = -1;
 
-  for(i; i < arr.length; i++) {
-    if(arr[i] === value) {
+  for (i; i < arr.length; i++) {
+    if (arr[i] === value) {
       return res = i;
     }
   }
@@ -48,19 +48,19 @@ _.filter = function(list, fun, isSorted) {
       res = [],
       keys;
   
-  if(typeof isSorted === 'number') { list = list.slice(isSorted) };
+  if (typeof isSorted === 'number') { list = list.slice(isSorted) };
 
-  if(Array.isArray(list)) {
-    for(i; i < list.length; i++) {
-      if(fun(list[i], i , list)) {
+  if (Array.isArray(list)) {
+    for (i; i < list.length; i++) {
+      if (fun(list[i], i , list)) {
         res.push(list[i]);
       };
     }
   } else {
     keys = Object.keys(list);
 
-    for(i; i < keys.length; i++) {
-      if(fun(list[keys[i]], keys[i], list)) {
+    for (i; i < keys.length; i++) {
+      if (fun(list[keys[i]], keys[i], list)) {
         res.push(list[keys[i]]);
       }
     }
@@ -74,17 +74,17 @@ _.reject = function(list, fun) {
       res = [],
       keys;
 
-  if(Array.isArray(list)) {
-    for(i; i < list.length; i++) {
-      if(!fun(list[i], i , list)) {
+  if (Array.isArray(list)) {
+    for (i; i < list.length; i++) {
+      if (!fun(list[i], i , list)) {
         res.push(list[i]);
       };
     }
   } else {
     keys = Object.keys(list);
 
-    for(i; i < keys.length; i++) {
-      if(!fun(list[keys[i]], keys[i], list)) {
+    for (i; i < keys.length; i++) {
+      if (!fun(list[keys[i]], keys[i], list)) {
         res.push(list[keys[i]]);
       }
     }
@@ -102,14 +102,14 @@ _.map = function(list, fun) {
       res = [],
       keys;
 
-  if(Array.isArray(list)) {
-    for(i; i < list.length; i++) {
+  if (Array.isArray(list)) {
+    for (i; i < list.length; i++) {
       res.push(fun(list[i], i , list));
     }
   } else {
     keys = Object.keys(list);
 
-    for(i; i < keys.length; i++) {
+    for (i; i < keys.length; i++) {
       res.push(fun(list[keys[i]], keys[i], list));
     }
   }
@@ -121,7 +121,7 @@ _.pluck = function(list, prop) {
       res = [],
       keys = Object.keys(list);
 
-  for(i; i < keys.length; i++) {
+  for (i; i < keys.length; i++) {
     res.push(list[keys[i]][prop]);
   }
 
@@ -129,18 +129,18 @@ _.pluck = function(list, prop) {
 };
 
 _.reduce = function(list, fun, memo) {
-  if(!memo || memo === 0) { memo = 0; }
+  if (!memo || memo === 0) { memo = 0; }
   
   var i = 0;
 
-  if(Array.isArray(list)) {
-    for(i; i < list.length; i++) {
+  if (Array.isArray(list)) {
+    for (i; i < list.length; i++) {
       memo = fun(memo, list[i], i, list);  
     }
   } else {
     keys = Object.keys(list);
 
-    for(i; i < keys.length; i++) {
+    for (i; i < keys.length; i++) {
       memo = fun(memo, list[keys[i]], i, list);
     }
   }
@@ -152,19 +152,19 @@ _.contains = function(list, value, fromIndex) {
   var i = 0,
       res = false;
 
-  if(Array.isArray(list)) {
-    if(fromIndex) { i = fromIndex }
+  if (Array.isArray(list)) {
+    if (fromIndex) { i = fromIndex }
 
-    for(i; i < list.length; i++) {
-      if(list[i] === value) {
+    for (i; i < list.length; i++) {
+      if (list[i] === value) {
         return res = true;
       }
     }
   } else {
     keys = Object.keys(list);
 
-    for(i; i < keys.length; i++) {
-      if(list[keys[i]] === value) {
+    for (i; i < keys.length; i++) {
+      if (list[keys[i]] === value) {
         return res = true;
       }
     }
@@ -177,17 +177,17 @@ _.every = function(list, fun) {
   var i = 0,
       res = true;
 
-  if(Array.isArray(list)) {
-    for(i; i < list.length; i++) {
-      if(!fun(list[i])) {
+  if (Array.isArray(list)) {
+    for (i; i < list.length; i++) {
+      if (!fun(list[i])) {
         return false;
       }
     }
   } else {
     keys = Object.keys(list);
 
-    for(i; i < keys.length; i++) {
-      if(!fun(list[keys[i]])) {
+    for (i; i < keys.length; i++) {
+      if (!fun(list[keys[i]])) {
         return false;
       }
     }
@@ -200,17 +200,17 @@ _.some = function(list, fun) {
   var i = 0,
       res = false;
 
-  if(Array.isArray(list)) {
-    for(i; i < list.length; i++) {
-      if(fun(list[i])) {
+  if (Array.isArray(list)) {
+    for (i; i < list.length; i++) {
+      if (fun(list[i])) {
         return true;
       }
     }
   } else {
     keys = Object.keys(list);
 
-    for(i; i < keys.length; i++) {
-      if(fun(list[keys[i]])) {
+    for (i; i < keys.length; i++) {
+      if (fun(list[keys[i]])) {
         return true;
       }
     }
@@ -218,19 +218,35 @@ _.some = function(list, fun) {
 
   return res;
 };
-/*
-_.extend = function(dst, src) {
-  var i = 0;
 
-  keys = Object.keys(sources);
-
-  for(i; i < keys.length; i++) {
-    dst.src[keys] = dst.src[keys[i]];
+_.extend = function(destination) {
+  var source;
+  
+  for (let i = 1; i < arguments.length; i++) {
+    source = arguments[i];
+    for (let key in source) {
+      destination[key] = source[key];
+    }
   }
 
-  return dst;
+  return destination;
+}
+
+_.defaults = function(object) {
+  var defaults;
+
+  for (let i = 1; i < arguments.length; i++) {
+    defaults = arguments[i];
+    for (let key in defaults) {
+      if (!object.hasOwnProperty(key)) {
+        object[key] = defaults[key];
+      }
+    }
+  }
+
+  return object;
 };
-*/
+
 if (typeof module !== 'undefined') {
   module.exports = _;
 }
