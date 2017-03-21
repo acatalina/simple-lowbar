@@ -24,18 +24,21 @@ _.last = function(arr, n) {
   return !n ? arr[arr.length - 1] : arr.slice(-n);
 };
 
-_.each = function(list, fun) {
-  var i = 0;
-
+_.each = function(list, iteratee, context) {
+  if (!Array.isArray(list) && typeof list !== 'object') return list;
+  let i = 0;
+  
+  context = context || this;
+  
   if (Array.isArray(list)) {
     for (i; i < list.length; i++) {
-      fun(list[i], i, list);
+      iteratee.call(context, list[i], i, list);
     }
   } else {
-    var keys = Object.keys(list);
+    let keys = Object.keys(list);
 
     for (i; i < keys.length; i++) {
-      fun(list[keys[i]], keys[i], list);
+      iteratee.call(context, list[keys[i]], keys[i], list);
     }
   }
 
