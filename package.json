@@ -2,7 +2,6 @@
   "name": "lowbar",
   "private": true,
   "version": "0.0.0",
-  "dependencies": {},
   "scripts": {
     "test": "mocha ./spec/",
     "lint": "eslint ./",
@@ -13,6 +12,7 @@
     "chai": "^3.5.0",
     "eslint": "^3.15.0",
     "husky": "^0.13.1",
-    "sinon": "^1.17.7"
+    "sinon": "^1.17.7",
+    "underscore": "^1.8.3"
   }
 }
