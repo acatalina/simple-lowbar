@@ -157,27 +157,47 @@ describe('#reject', function () {
     });
   });
 
-  describe.only('#uniq', function() {
+  describe('#uniq', function() {
     it('is a function', function() {
       expect(_.uniq).to.be.a('function');
     });
 
-    it('returns an array of unique elements', function() {
-      expect(_.uniq([1, 1, 2])).to.eql([1, 2]);
-      expect(_.uniq([1, 1, 2, 2, 2, 2, 3, 4, 5, 5])).to.eql([1, 2, 3, 4, 5]);
+    it('returns an empty array when no arguments passed or it is not an array', function() {
+      expect(_.uniq(true)).to.eql([]);
+      expect(_.uniq({name: 'foo'})).to.eql([]);
     });
 
-    it('respects the order of the array', function() {
-      expect(_.uniq([1, 1, 2, 5, 2, 2, 3, 4, 5, 5])).to.eql([1, 2, 5, 3, 4]);
+    it('returns an array of unique elements and respects the order', function() {
+      let actual = _.uniq([1, 1, 2]);
+      let expected = [1, 2];
+      expect(actual).to.eql(expected);
+      actual = _.uniq([1, 1, 2, 5, 2, 2, 3, 4, 5, 5]);
+      expected = [1, 2, 5, 3, 4];
+      expect(actual).to.eql(expected);
     });
 
     it('accepts a isSorted value to run a quicker algorithm', function() {
-      expect(_.uniq([1, 1, 2, 2, 2, 2, 3, 4, 5, 5], true)).to.eql([1, 2, 3, 4, 5]);
+      let actual = _.uniq([1, 1, 2, 2, 2, 2, 3, 4, 5, 5], true);
+      let expected = [1, 2, 3, 4, 5];
+      expect(actual).to.eql(expected);
     });
 
     it('does a unique search based on an iteratee given', function() {
-      expect(_.uniq([{name: 'al'}, {name: 'al'}], ((e) => { 
-        return e.name;}))).to.eql([{name: 'al'}]);
+      let input = [
+        { name: 'bar', text: 'test text' },
+        { name: 'foo', text: 'did it work?' },
+        { name: 'bar', text: 'did it work? 2' },
+        { name: 'foo', text: 'did it work? 3' },
+        { name: 'bar', text: 'did it work? 4' },
+        { name: 'foo', text: 'did it work? 4' },
+        { name: 'bar', text: 'did it work? 5' },
+        { name: 'foo', text: 'did it work? 6' },
+      ];
+      let actual= _.uniq(input, false, ((e) => { return e.name }));
+      let expected = [ { name: 'bar', text: 'test text' },
+        { name: 'foo', text: 'did it work?' } ]
+
+      expect(actual).to.eql(expected);
     });
   });
 
