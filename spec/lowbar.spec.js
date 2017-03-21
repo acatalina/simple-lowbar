@@ -45,6 +45,15 @@ describe('_', function () {
       expect(actual).to.eql(expected);
     });
   
+    it('allows a boolean as a trigger for a second argument', function() {
+      let actual = _.first([1, 2, 3], true);
+      let expected = 1;
+      expect(actual).to.eql(expected);
+      actual = _.first([1, 2, 3], false);
+      expected = [];
+      expect(actual).to.eql(expected);
+    });
+
     it('allows n as a second argument and returns the first n elements of an array', function () {
       let actual = _.first([1, 2, 3], 2);
       let expected = [1, 2];
@@ -53,6 +62,12 @@ describe('_', function () {
       expected = [{name: 'first'}, {name: 'second'}];
       expect(actual).to.eql(expected);
     });
+
+    it('does not break if an array is given as a second argument. Instead, it takes the first element of the array as n value', function() {
+      let actual = _.first([1, 2, 3], [2, 1]);
+      let expected = [1, 2];
+      expect(actual).to.eql(expected);
+    })
   });
 
   describe('#last', function () {

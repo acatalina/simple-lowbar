@@ -6,12 +6,17 @@ _.identity = function() {
 
 _.first = function(arr, n) {
   if (!Array.isArray(arr)) return;
+  if (typeof n === 'boolean') {
+    if (n) { n = 0; } else { return []; }
+  }
   if (Array.isArray(n)) n = n[0] || 1;
   
   return !n ? arr[0] : arr.slice(0, n);
 };
 
 _.last = function(arr, n) {
+  if (!Array.isArray(arr)) return;
+
   return n === 1 || !n ? arr[arr.length - 1] : arr.slice(-n);
 };
 
