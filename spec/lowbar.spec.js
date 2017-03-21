@@ -1,9 +1,8 @@
 /* global describe, it */
-var path = require('path');
-var expect = require('chai').expect;
-var sinon = require('sinon');
-
-var _ = require(path.join(__dirname, '..', './lowbar.js'));
+const path = require('path');
+const expect = require('chai').expect;
+const sinon = require('sinon');
+const _ = require(path.join(__dirname, '..', './lowbar.js'));
 
 describe('_', function () {
   'use strict';
@@ -17,10 +16,10 @@ describe('_', function () {
       expect(_.identity).to.be.a('function');
     });
 
-    it('return arguments or undefined', function () {
-      var actual = _.identity([1, 2, 3]);
-      var expected = [1, 2, 3];
-      expect(actual).to.eql(expected);
+    it('returns the same passed arguments or undefined if no arguments given', function () {
+      let expected = [1, 2, 3];
+      let actual = _.identity(expected);
+      expect(actual).to.equal(expected);
       actual = _.identity();
       expected = undefined;
       expect(actual).to.eql(expected);
@@ -32,25 +31,29 @@ describe('_', function () {
       expect(_.first).to.be.a('function');
     });
 
-    it('return the first element of an array', function () {
-      var actual = _.first([1, 2, 3]);
-      var expected = 1;
+    it('returns undefined if no arguments or not an array is given', function() {
+      expect(_.first()).to.eql(undefined);
+      expect(_.first(3)).to.eql(undefined);
+    });
+
+    it('returns the first element of an array', function () {
+      let actual = _.first([1, 2, 3]);
+      let expected = 1;
       expect(actual).to.eql(expected);
-      actual = _.first([2, 3, 4]);
-      expected = 2;
+      actual = _.first([{name: 'first'}, {name: 'second'}]);
+      expected = {name: 'first'};
       expect(actual).to.eql(expected);
     });
   
-    it('return the first n elements of an array', function () {
-      var actual = _.first([1, 2, 3], 2);
-      var expected = [1, 2];
+    it('allows n as a second argument and returns the first n elements of an array', function () {
+      let actual = _.first([1, 2, 3], 2);
+      let expected = [1, 2];
       expect(actual).to.eql(expected);
-      actual = _.first([2, 3, 4, 5], 3);
-      expected = [2, 3, 4];
+      actual = _.first([{name: 'first'}, {name: 'second'}, {name: 'third'}], 2);
+      expected = [{name: 'first'}, {name: 'second'}];
       expect(actual).to.eql(expected);
     });
   });
-
 
   describe('#last', function () {
     it('is a function', function() {

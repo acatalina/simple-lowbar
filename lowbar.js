@@ -5,7 +5,10 @@ _.identity = function() {
 };
 
 _.first = function(arr, n) {
-  return n === 1 || !n ? arr[0] : arr.slice(0, n);
+  if (!Array.isArray(arr)) return;
+  if (Array.isArray(n)) n = n[0] || 1;
+  
+  return !n ? arr[0] : arr.slice(0, n);
 };
 
 _.last = function(arr, n) {
