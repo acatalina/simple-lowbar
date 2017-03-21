@@ -157,7 +157,31 @@ describe('#reject', function () {
     });
   });
 
-  describe('#map', function () {
+  describe.only('#uniq', function() {
+    it('is a function', function() {
+      expect(_.uniq).to.be.a('function');
+    });
+
+    it('returns an array of unique elements', function() {
+      expect(_.uniq([1, 1, 2])).to.eql([1, 2]);
+      expect(_.uniq([1, 1, 2, 2, 2, 2, 3, 4, 5, 5])).to.eql([1, 2, 3, 4, 5]);
+    });
+
+    it('respects the order of the array', function() {
+      expect(_.uniq([1, 1, 2, 5, 2, 2, 3, 4, 5, 5])).to.eql([1, 2, 5, 3, 4]);
+    });
+
+    it('accepts a isSorted value to run a quicker algorithm', function() {
+      expect(_.uniq([1, 1, 2, 2, 2, 2, 3, 4, 5, 5], true)).to.eql([1, 2, 3, 4, 5]);
+    });
+
+    it('does a unique search based on an iteratee given', function() {
+      expect(_.uniq([{name: 'al'}, {name: 'al'}], ((e) => { 
+        return e.name;}))).to.eql([{name: 'al'}]);
+    });
+  });
+
+  describe('#map', function() {
     it('is a function', function() {
       expect(_.map).to.be.a('function');
     });

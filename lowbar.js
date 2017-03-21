@@ -93,8 +93,52 @@ _.reject = function(list, fun) {
   return res;
 };
 
+// Needs checking!
 _.uniq = function(arr, isSorted, iteratee) {
+  if (!arr || !Array.isArray(arr)) { return []; }
+  
+  let res = [];
+  let seen;
+  let fun;
+  let funElem;
 
+  if (typeof isSorted !== 'boolean') {
+    fun = isSorted;
+    isSorted = false;
+  }
+
+  for (let i = 0; i < arr.length; i++) {
+    if (i === 0) {
+      res.push(arr[i]);
+      if (fun) {
+      seen = fun(arr[i], i, arr);
+      } else {
+      seen = arr[i];
+      }
+      funElem = seen;
+    }
+
+    if (i !== 0) {
+      if (fun) {
+        funElem = fun(arr[i], i, arr);
+      } else {
+        funElem = arr[i];
+      }
+    }
+    
+    if (funElem !== seen) {
+      if (isSorted) {
+        res.push(arr[i]);
+      } else {
+        if (!res.includes(arr[i])) {
+          res.push(arr[i]);
+        }
+      }
+      seen = funElem;
+    }
+  } 
+
+  return res;
 };
 
 _.map = function(list, fun) {
