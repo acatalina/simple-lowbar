@@ -1,7 +1,7 @@
 var _ = {};
 
 _.identity = function() {
-  return arguments[0]; 
+  return arguments[0];
 };
 
 _.first = function(arr, n) {
@@ -93,50 +93,49 @@ _.reject = function(list, fun) {
   return res;
 };
 
-// Needs checking!
 _.uniq = function(arr, isSorted, iteratee) {
-  if (!arr || !Array.isArray(arr)) { return []; }
-  
-  let res = [];
-  let seen;
-  let fun;
-  let funElem;
+  if (!Array.isArray(arr)) { return []; }
 
-  if (typeof isSorted !== 'boolean') {
-    fun = isSorted;
+  if (iteratee === undefined && typeof isSorted === 'function') {
+    iteratee = isSorted;
     isSorted = false;
   }
 
-  for (let i = 0; i < arr.length; i++) {
-    if (i === 0) {
-      res.push(arr[i]);
-      if (fun) {
-      seen = fun(arr[i], i, arr);
-      } else {
-      seen = arr[i];
-      }
-      funElem = seen;
+  let res = [];
+  let seen = isSorted ? undefined : [];
+  let hasBeenSeen = isSorted ? hasBeenSeenSorted : hasBeenSeenUnsorted;
+  
+  function hasBeenSeenSorted(val, i, arr) {
+    val = getComparable(val, i, arr);
+
+    if (seen === val) {
+      return true;
     }
 
-    if (i !== 0) {
-      if (fun) {
-        funElem = fun(arr[i], i, arr);
-      } else {
-        funElem = arr[i];
-      }
+    seen = val;
+    return false;
+  }
+
+  function hasBeenSeenUnsorted(val, i, arr) {
+    val = getComparable(val);
+
+    if (seen.indexOf(val) > -1) {
+      return true;
     }
-    
-    if (funElem !== seen) {
-      if (isSorted) {
-        res.push(arr[i]);
-      } else {
-        if (!res.includes(arr[i])) {
-          res.push(arr[i]);
-        }
-      }
-      seen = funElem;
+
+    seen.push(val);
+    return false;
+  }
+
+  function getComparable(val, i, arr) {
+    return iteratee ? iteratee(val, i, arr) : val;
+  }
+
+  for (let i = 0; i < arr.length; i++) {
+    if (!hasBeenSeen(arr[i], i, arr)) {
+      res.push(arr[i]);
     }
-  } 
+  }
 
   return res;
 };
