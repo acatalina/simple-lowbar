@@ -26,6 +26,7 @@ _.last = function(arr, n) {
 
 _.each = function(list, iteratee, context) {
   if (!Array.isArray(list) && typeof list !== 'object') return list;
+  
   let i = 0;
   
   context = context || this;
@@ -45,17 +46,39 @@ _.each = function(list, iteratee, context) {
   return list;
 };
 
-_.indexOf = function(arr, value, isSorted) {
-  var i = 0,
-      res = -1;
+_.indexOf = function(arr, val, isSorted) {
+  if (isSorted === true) {
+    var startIndex = 0;
+    var prevIndex = 0;
+    var endIndex = arr.length;
+    var midIndex = Math.floor(endIndex / 2);
 
-  for (i; i < arr.length; i++) {
-    if (arr[i] === value) {
-      return res = i;
+    while ( (arr[midIndex] !== val) && (prevIndex / midIndex !== 1) ) {
+      if (arr[midIndex] > val) {
+        endIndex = midIndex;
+        prevIndex = midIndex;
+        midIndex -= (midIndex - startIndex) / 2;
+        midIndex = Math.floor(midIndex);
+      } else {
+        startIndex = midIndex;
+        prevIndex = midIndex;
+        midIndex += (endIndex - midIndex) / 2;
+        midIndex = Math.floor(midIndex);
+      }
     }
-  }
 
-  return res;
+    return arr[midIndex] === val ? midIndex : -1;
+  } else {
+    isSorted = isSorted || 0;
+    
+    for (let i = isSorted; i < arr.length; i++) {
+      if (arr[i] === val) {
+        return i;
+      }
+    }
+
+    return -1;
+  }
 };
 
 _.filter = function(list, fun, isSorted) {
