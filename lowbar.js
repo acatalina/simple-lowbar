@@ -185,8 +185,6 @@ _.uniq = function(arr, isSorted, iteratee) {
 };
 
 _.map = function(list, iteratee, context) {
-  if (!Array.isArray(list) && typeof list !== 'object') return [];
-  
   let i = 0;
   let res = [];
 
@@ -197,7 +195,7 @@ _.map = function(list, iteratee, context) {
       let transformed = iteratee.call(context, list[i], i , list);
       res.push(transformed);
     }
-  } else {
+  } else if (typeof list === 'object') {
     let keys = Object.keys(list);
 
     for (i; i < keys.length; i++) {
