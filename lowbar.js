@@ -184,22 +184,28 @@ _.uniq = function(arr, isSorted, iteratee) {
   return res;
 };
 
-_.map = function(list, fun) {
-  var i = 0,
-      res = [],
-      keys;
+_.map = function(list, iteratee, context) {
+  if (!Array.isArray(list) && typeof list !== 'object') return [];
+  
+  let i = 0;
+  let res = [];
+
+  context = context || this;
 
   if (Array.isArray(list)) {
     for (i; i < list.length; i++) {
-      res.push(fun(list[i], i , list));
+      let transformed = iteratee.call(context, list[i], i , list);
+      res.push(transformed);
     }
   } else {
-    keys = Object.keys(list);
+    let keys = Object.keys(list);
 
     for (i; i < keys.length; i++) {
-      res.push(fun(list[keys[i]], keys[i], list));
+      let transformed = iteratee.call(context, list[keys[i]], keys[i], list);
+      res.push(transformed);
     }
   }
+  
   return res;
 };
 
