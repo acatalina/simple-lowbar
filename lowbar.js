@@ -250,7 +250,7 @@ _.contains = function(list, value, fromIndex) {
         return true;
       }
     }
-  } else if (typeof list === 'object'){
+  } else if (typeof list === 'object') {
     let keys = Object.keys(list);
 
     for (i; i < keys.length; i++) {
@@ -263,22 +263,26 @@ _.contains = function(list, value, fromIndex) {
   return false;
 };
 
-_.every = function(list, fun) {
-  var i = 0,
-      res = true;
+_.every = function(list, predicate, context) {
+  let i = 0;
+  let res = true;
+
+  context = context || this;
 
   if (Array.isArray(list)) {
     for (i; i < list.length; i++) {
-      if (!fun(list[i])) {
-        return false;
+      if (!predicate.call(context, list[i])) {
+        res = false;
+        break;
       }
     }
-  } else {
-    keys = Object.keys(list);
+  } else if (typeof list === 'object') {
+    let keys = Object.keys(list);
 
     for (i; i < keys.length; i++) {
-      if (!fun(list[keys[i]])) {
-        return false;
+      if (!predicate.call(context, list[keys[i]])) {
+        res = false;
+        break;
       }
     }
   }
