@@ -274,7 +274,7 @@ _.every = function(list, predicate, context) {
 
   if (Array.isArray(list)) {
     for (i; i < list.length; i++) {
-      if (!predicate.call(context, list[i])) {
+      if (!predicate.call(context, list[i], i, list)) {
         res = false;
         break;
       }
@@ -283,7 +283,7 @@ _.every = function(list, predicate, context) {
     let keys = Object.keys(list);
 
     for (i; i < keys.length; i++) {
-      if (!predicate.call(context, list[keys[i]])) {
+      if (!predicate.call(context, list[keys[i]], keys[i], list)) {
         res = false;
         break;
       }
@@ -293,22 +293,26 @@ _.every = function(list, predicate, context) {
   return res;
 };
 
-_.some = function(list, fun) {
-  var i = 0,
-      res = false;
+_.some = function(list, predicate, context) {
+  let i = 0;
+  let res = false;
+
+  context = context || this;
 
   if (Array.isArray(list)) {
     for (i; i < list.length; i++) {
-      if (fun(list[i])) {
-        return true;
+      if (predicate.call(context, list[i], i, list)) {
+        res = true;
+        break;
       }
     }
-  } else {
-    keys = Object.keys(list);
+  } else if (typeof list === 'object') {
+    let keys = Object.keys(list);
 
     for (i; i < keys.length; i++) {
-      if (fun(list[keys[i]])) {
-        return true;
+      if (predicate.call(context, list[keys[i]], keys[i], list)) {
+        res = true;
+        break;
       }
     }
   }
