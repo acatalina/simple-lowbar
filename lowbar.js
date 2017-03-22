@@ -111,8 +111,6 @@ _.filter = function(list, predicate, context) {
 };
 
 _.reject = function(list, predicate) {
-  if (!Array.isArray(list) && typeof list !== 'object') return [];
-
   let i = 0;
   let res = [];
 
@@ -124,7 +122,7 @@ _.reject = function(list, predicate) {
         res.push(list[i]);
       };
     }
-  } else {
+  } else if (typeof list === 'object') {
     let keys = Object.keys(list);
 
     for (i; i < keys.length; i++) {
