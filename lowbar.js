@@ -83,24 +83,25 @@ _.indexOf = function(arr, val, isSorted) {
   }
 };
 
-_.filter = function(list, fun, isSorted) {
-  var i = 0,
-      res = [],
-      keys;
+_.filter = function(list, predicate, context) {
+  if (!Array.isArray(list) && typeof list !== 'object') return [];
   
-  if (typeof isSorted === 'number') { list = list.slice(isSorted) };
+  let i = 0;
+  let res = [];
+
+  context = context || this;
 
   if (Array.isArray(list)) {
     for (i; i < list.length; i++) {
-      if (fun(list[i], i , list)) {
+      if (predicate.call(context, list[i], i , list)) {
         res.push(list[i]);
       };
     }
   } else {
-    keys = Object.keys(list);
+    let keys = Object.keys(list);
 
     for (i; i < keys.length; i++) {
-      if (fun(list[keys[i]], keys[i], list)) {
+      if (predicate.call(context, list[keys[i]], keys[i], list)) {
         res.push(list[keys[i]]);
       }
     }
