@@ -11,17 +11,6 @@ describe('_', function () {
     expect(_).to.be.an('object');
   });
 
-  describe('#pluck', function () {
-    it('is a function', function() {
-      expect(_.pluck).to.be.a('function');
-    });
-
-    it('extracts property values', function () {
-      var pluck = _.pluck([{num: 1, c: 0 }, {num: 2, c: 3}, {num:3, c:1}], 'num');
-      expect(pluck).to.eql([1, 2, 3]);
-    });
-  });
-
   describe('#reduce', function () {
     it('is a function', function() {
       expect(_.reduce).to.be.a('function');
