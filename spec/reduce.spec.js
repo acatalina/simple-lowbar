@@ -19,6 +19,10 @@ describe('_.reduce', function() {
     let spy = sinon.spy();
     _.reduce([1, 2, 3], spy);
     expect(spy.callCount).to.eql(3);
+
+    spy = sinon.spy();
+    _.reduce({1: 1, 2: 1, 3: 1}, spy);
+    expect(spy.callCount).to.eql(3);
   });
   
   it('returns the modified value according to the iteratee given', function() {
