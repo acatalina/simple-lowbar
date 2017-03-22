@@ -210,12 +210,13 @@ _.map = function(list, iteratee, context) {
 };
 
 _.pluck = function(list, prop) {
-  var i = 0,
-      res = [],
-      keys = Object.keys(list);
+  if (!Array.isArray(list)) return [];
 
-  for (i; i < keys.length; i++) {
-    res.push(list[keys[i]][prop]);
+  let i = 0;
+  let res = [];
+
+  for (i; i < list.length; i++) {
+    res.push(list[i][prop]);
   }
 
   return res;
