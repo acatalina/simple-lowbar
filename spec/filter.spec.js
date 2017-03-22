@@ -3,7 +3,6 @@ const path = require('path');
 const expect = require('chai').expect;
 const sinon = require('sinon');
 const _ = require(path.join(__dirname, '..', './lowbar.js'));
-const filter = require('underscore').filter;
 
 describe('#filter', function () {
   it('is a function', function() {
