@@ -47,11 +47,13 @@ _.each = function(list, iteratee, context) {
 };
 
 _.indexOf = function(arr, val, isSorted) {
+  if (!Array.isArray(arr) || !val) return -1;
+
   if (isSorted === true) {
-    var startIndex = 0;
-    var prevIndex = 0;
-    var endIndex = arr.length;
-    var midIndex = Math.floor(endIndex / 2);
+    let startIndex = 0;
+    let prevIndex = 0;
+    let endIndex = arr.length;
+    let midIndex = Math.floor(endIndex / 2);
 
     while ( (arr[midIndex] !== val) && (prevIndex / midIndex !== 1) ) {
       if (arr[midIndex] > val) {
