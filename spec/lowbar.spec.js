@@ -2,6 +2,7 @@
 const path = require('path');
 const expect = require('chai').expect;
 const sinon = require('sinon');
+const range = require('underscore').range;
 const _ = require(path.join(__dirname, '..', './lowbar.js'));
 
 describe('_', function () {
@@ -9,28 +10,6 @@ describe('_', function () {
 
   it('is an object', function () {
     expect(_).to.be.an('object');
-  });
-
-describe('#reject', function () {
-    it('is a function', function() {
-      expect(_.reject).to.be.a('function');
-    });
-
-    it('checks every element on a list', function () {
-      var spy = sinon.spy();
-      _.reject([1, 2, 3], spy);
-      expect(spy.callCount).to.eql(3);
-      _.reject({1: 1, 2: 2, 3: 3}, spy);
-      expect(spy.callCount).to.eql(6);
-    });
-
-    it('returns a rejected list', function () {
-      var spy = function(n) { return n < 3; };
-      var reject = _.reject([1, 2, 3], spy);
-      expect(reject).to.eql([3]);
-      reject = _.reject({1: 1, 2: 2, 3: 3}, spy);
-      expect(reject).to.eql([3]);
-    });
   });
 
   describe('#uniq', function() {
@@ -52,10 +31,20 @@ describe('#reject', function () {
       expect(actual).to.eql(expected);
     });
 
-    it('accepts a isSorted value to run a quicker algorithm', function() {
-      let actual = _.uniq([1, 1, 2, 2, 2, 2, 3, 4, 5, 5], true);
-      let expected = [1, 2, 3, 4, 5];
-      expect(actual).to.eql(expected);
+    it('accepts a isSorted value that runs a quicker algorithm', function() {
+      let data = range(10000);
+      let start, end, notSortedTime, isSortedTime;
+      start = Date.now();
+      _.uniq(data, true);
+      end = Date.now();
+      isSortedTime = end - start;
+
+      start = Date.now();
+      _.uniq(data, false);
+      end = Date.now();
+      notSortedTime = end - start;
+      
+      expect(isSortedTime).to.be.lessThan(notSortedTime);
     });
 
     it('does a unique search based on an iteratee given', function() {
