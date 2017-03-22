@@ -8,15 +8,31 @@ describe('#defaults', function() {
     expect(_.defaults).to.be.a('function');
   });
 
+  it('handles invalid inputs', function() {
+    expect(_.defaults()).to.equal(undefined);
+    expect(_.defaults(false)).to.equal(false);
+    expect(_.defaults([1])).to.eql([1]);
+  });
+
   it('returns the object if no defaults is given', function() {
-    expect(_.defaults({name: 'Al'})).to.eql({name: 'Al'});
+    let actual = _.defaults({name: 'foo'})
+    let expected = {name: 'foo'};
+    expect(actual).to.eql(expected);
   });
 
   it('copies the missing properties from defaults object to object', function() {
-    expect(_.defaults({name: 'Al'}, {surname: 'Catalina'})).to.eql({name: 'Al', surname: 'Catalina'});
+    let actual = _.defaults({name: 'foo'}, {surname: 'bar'})
+    let expected = {name: 'foo', surname: 'bar'};
+    expect(actual).to.eql(expected);
+    
+    actual = _.defaults({name: undefined}, {name: 'foo'})
+    expected = {name: 'foo'};
+    expect(actual).to.eql(expected);
   });
 
   it('does not overwrites properties from default object on object', function() {
-    expect(_.defaults({name: 'Al', surname: 'Catalina'}, {surname: 'Martin'})).to.eql({name: 'Al', surname: 'Catalina'});
+    let expected = _.defaults({name: 'foo', surname: 'bar'}, {surname: 'baz'})
+    let actual = {name: 'foo', surname: 'bar'};
+    expect(actual).to.eql(expected);
   });
 });

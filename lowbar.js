@@ -320,27 +320,29 @@ _.some = function(list, predicate, context) {
   return res;
 };
 
-_.extend = function(destination) {
-  var source;
-  
+_.extend = function(destination, source) {
+  let keys;
+
   for (let i = 1; i < arguments.length; i++) {
     source = arguments[i];
-    for (let key in source) {
-      destination[key] = source[key];
+    keys = Object.keys(source);
+    
+    for (let j = 0; j < keys.length; j++) {
+      destination[keys[j]] = source[keys[j]];
     }
   }
 
   return destination;
 }
 
-_.defaults = function(object) {
-  var defaults;
-
+_.defaults = function(object, defaults) {
   for (let i = 1; i < arguments.length; i++) {
     defaults = arguments[i];
-    for (let key in defaults) {
-      if (!object.hasOwnProperty(key)) {
-        object[key] = defaults[key];
+    keys = Object.keys(defaults);
+    
+    for (let j = 0; j < keys.length; j++) {
+      if (!object[keys[j]]) {
+        object[keys] = defaults[keys];
       }
     }
   }
