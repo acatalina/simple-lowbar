@@ -216,18 +216,20 @@ _.pluck = function(list, prop) {
 
 _.reduce = function(list, iteratee, memo, context) {
   if (!Array.isArray(list) && typeof list !== 'object') return;
-  if (!memo || memo === 0) { memo = 0; }
   
   let i = 0;
 
   context = context || this;
 
   if (Array.isArray(list)) {
+    memo = memo || list[i] || 0;
+
     for (i; i < list.length; i++) {
       memo = iteratee.call(context, memo, list[i], i, list);  
     }
   } else {
     let keys = Object.keys(list);
+    memo = memo || list[keys[0]] || 0;
 
     for (i; i < keys.length; i++) {
       memo = iteratee.call(context, memo, list[keys[i]], i, list);

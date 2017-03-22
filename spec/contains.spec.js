@@ -1,7 +1,7 @@
 /* global describe, it */
 const path = require('path');
 const expect = require('chai').expect;
-const sinon = require('sinon');
+const range = require('underscore').range;
 const _ = require(path.join(__dirname, '..', './lowbar.js'));
  
 describe('_.contains', function() {    
@@ -43,5 +43,21 @@ describe('_.contains', function() {
     expected = true;
     actual = _.contains([1, 2, 3], 1, 0);
     expect(actual).to.eql(expected);
+  });
+
+  it('stops searching when finds a matching value', function() {
+    let data = range(1000000);
+    let start, end, firstElem, lastElem;
+    start = Date.now();
+    _.contains(data, 1);
+    end = Date.now();
+    firstElem = end - start;
+
+    start = Date.now();
+    _.contains(data, 1000000);
+    end = Date.now();
+    lastElem = end - start;
+    
+    expect(firstElem).to.be.lessThan(lastElem);
   });
 });
