@@ -54,6 +54,7 @@ describe('_.reduce', function() {
     let expected = 1;
     _.reduce([1, 2, 3], ((memo, elem) => { return actual = memo; }));
     expect(actual).to.equal(expected);
+    
     actual;
     expected = 2;
     _.reduce({1: 2, 3: 4}, ((memo, elem) => { return actual = memo; }));

@@ -4,7 +4,7 @@ const expect = require('chai').expect;
 const sinon = require('sinon');
 const _ = require(path.join(__dirname, '..', './lowbar.js'));
 
-describe('_.filter', function () {
+describe('_.filter', function() {
   it('is a function', function() {
     expect(_.filter).to.be.a('function');
   });
@@ -15,16 +15,17 @@ describe('_.filter', function () {
     expect(_.filter(NaN)).to.eql([]);
   });
 
-  it('checks every element on a list', function () {
+  it('checks every element on a list', function() {
     let spy = sinon.spy();
     _.filter([1, 2, 3], spy);
     expect(spy.callCount).to.eql(3);
+    
     spy = sinon.spy();
     _.filter({1: 1, 2: 2, 3: 3}, spy);
     expect(spy.callCount).to.eql(3);
   });
 
-  it('returns a filtered list', function () {
+  it('returns a filtered list', function() {
     const predicate = function(n) { return n < 3; };
     let actual = _.filter([1, 2, 3], predicate);
     expect(actual).to.eql([1, 2]);

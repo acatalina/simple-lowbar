@@ -4,12 +4,12 @@ const expect = require('chai').expect;
 const sinon = require('sinon');
 const _ = require(path.join(__dirname, '..', './lowbar.js'));
 
-describe('#each', function () {    
+describe('_.each', function() {    
   it('is a function', function() {
     expect(_.each).to.be.a('function');
   });
 
-  it('returns back whatever is given', function () {
+  it('returns back whatever is given', function() {
     let expected = [1, 2, 3];
     let actual = _.each(expected, function(){});
     expect(actual).to.equal(expected);      

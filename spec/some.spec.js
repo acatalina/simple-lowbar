@@ -4,7 +4,7 @@ const expect = require('chai').expect;
 const sinon = require('sinon');
 const _ = require(path.join(__dirname, '..', './lowbar.js'));
 
-describe('_.some', function () {    
+describe('_.some', function() {    
   it('is a function', function() {
     expect(_.some).to.be.a('function');
   });
@@ -15,7 +15,7 @@ describe('_.some', function () {
     expect(_.some(NaN)).to.eql(false);
   });
 
-  it('returns true and stops counting if at least one value pass the criteria', function () {
+  it('returns true and stops counting if at least one value pass the criteria', function() {
     let spy = sinon.spy(function(n) { return n < 3; })
     let expected = true;
     let actual = _.some([1, 2, 3], spy);
@@ -28,7 +28,7 @@ describe('_.some', function () {
     expect(spy.callCount).to.eql(1);
   });
 
-  it('returns false when all items are false', function () {
+  it('returns false when all items are false', function() {
     let spy = sinon.spy(function(n) { return n > 4; })
     let expected = false;
     let actual = _.some([1, 2, 3], spy);

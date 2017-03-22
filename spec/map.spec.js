@@ -15,7 +15,7 @@ describe('_.map', function() {
     expect(_.map(NaN)).to.eql([]);
   });
 
-  it('checks every element on a list', function () {
+  it('checks every element on a list', function() {
     let spy = sinon.spy();
     _.map([1, 2, 3], spy);
     expect(spy.callCount).to.eql(3);
@@ -25,7 +25,7 @@ describe('_.map', function() {
     expect(spy.callCount).to.eql(3);
   });
 
-  it('returns a mapped list', function () {
+  it('returns a mapped list', function() {
     let iteratee = function(n) { return n + 1; };
     let actual = _.map([1, 2, 3], iteratee);
     let expected = [2, 3, 4];

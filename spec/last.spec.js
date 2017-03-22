@@ -3,7 +3,7 @@ const path = require('path');
 const expect = require('chai').expect;
 const _ = require(path.join(__dirname, '..', './lowbar.js'));
 
-describe('#last', function () {
+describe('_.last', function() {
   it('is a function', function() {
     expect(_.last).to.be.a('function');
   });
@@ -13,10 +13,11 @@ describe('#last', function () {
     expect(_.first(3)).to.eql(undefined);
   });
 
-  it('return the last element of an array', function () {
+  it('return the last element of an array', function() {
     var actual = _.last([1, 2, 3]);
     var expected = 3;
     expect(actual).to.eql(expected);
+    
     actual = _.last([{name: 'first'}, {name: 'second'}]);
     expected = {name: 'second'};
     expect(actual).to.eql(expected);
@@ -26,15 +27,17 @@ describe('#last', function () {
     let actual = _.last([1, 2, 3], true);
     let expected = 3;
     expect(actual).to.eql(expected);
+    
     actual = _.last([1, 2, 3], false);
     expected = [];
     expect(actual).to.eql(expected);
   });
 
-  it('return the last n elements of an array', function () {
+  it('return the last n elements of an array', function() {
     var actual = _.last([1, 2, 3], 2);
     var expected = [2, 3];
     expect(actual).to.eql(expected);
+    
     actual = _.last([{name: 'first'}, {name: 'second'}, {name: 'third'}], 2);
     expected = [{name: 'second'}, {name: 'third'}];
     expect(actual).to.eql(expected);

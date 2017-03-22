@@ -4,7 +4,7 @@ const expect = require('chai').expect;
 const sinon = require('sinon');
 const _ = require(path.join(__dirname, '..', './lowbar.js'));
 
-describe('_.reject', function () {
+describe('_.reject', function() {
   it('is a function', function() {
     expect(_.reject).to.be.a('function');
   });
@@ -15,7 +15,7 @@ describe('_.reject', function () {
     expect(_.filter(NaN)).to.eql([]);
   });
 
-  it('checks every element on a list', function () {
+  it('checks every element on a list', function() {
     let spy = sinon.spy();
     _.reject([1, 2, 3], spy);
     expect(spy.callCount).to.eql(3);
@@ -25,7 +25,7 @@ describe('_.reject', function () {
     expect(spy.callCount).to.eql(3);
   });
 
-  it('returns a rejected list', function () {
+  it('returns a rejected list', function() {
     let predicate = function(n) { return n < 3; };
     let reject = _.reject([1, 2, 3], predicate);
     expect(reject).to.eql([3]);

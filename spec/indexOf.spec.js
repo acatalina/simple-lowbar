@@ -3,8 +3,8 @@ var expect = require('chai').expect;
 const _ = require(path.join(__dirname, '..', './lowbar.js'));
 var range = require('underscore').range;
 
-describe('_.indexOf', function () {
-  it('is a function', function () {
+describe('_.indexOf', function() {
+  it('is a function', function() {
     expect(_.indexOf).to.be.a('function');
   });
 
@@ -15,22 +15,23 @@ describe('_.indexOf', function () {
     expect(_.indexOf([1, 2], true)).to.equal(-1);
   });
   
-  it('returns the correct index value', function () {
+  it('returns the correct index value', function() {
     let actual = _.indexOf([1, 2, 3], 1);
     let expected = 0;
     expect(actual).to.be.equal(expected);
+    
     actual = _.indexOf([1, 2, 4, 5, 6, 7, 8, 9, 4, 3, 1, 2, 2, 3], 4);
     expected = 2;
     expect(actual).to.be.equal(expected);
   });
 
-  it('returns -1 when value is not found', function () {
+  it('returns -1 when value is not found', function() {
     let actual = _.indexOf([1, 2, 3], 4);
     let expected = -1;
     expect(actual).to.be.equal(expected);
   });
 
-  it('performs a quicker search if true as third argument is given', function () {
+  it('performs a quicker search if true as third argument is given', function() {
     let data = range(1000000);
     let start, end, selectionTime, binaryTime;
     start = Date.now();
@@ -46,7 +47,7 @@ describe('_.indexOf', function () {
     expect(binaryTime).to.be.lessThan(selectionTime);
   });
 
-  it('returns index value from index value given as a third argument', function () {
+  it('returns index value from index value given as a third argument', function() {
     let actual = _.indexOf([1, 2, 4, 5, 6, 7, 8, 9, 4, 3, 1, 2, 2, 3], 4, 11);
     let expected = -1;
     expect(actual).to.be.equal(expected);
