@@ -2,7 +2,6 @@
 const path = require('path');
 const expect = require('chai').expect;
 const sinon = require('sinon');
-const range = require('underscore').range;
 const _ = require(path.join(__dirname, '..', './lowbar.js'));
 
 describe('_', function () {
@@ -10,30 +9,6 @@ describe('_', function () {
 
   it('is an object', function () {
     expect(_).to.be.an('object');
-  });
-
-  
-
-  describe('#map', function() {
-    it('is a function', function() {
-      expect(_.map).to.be.a('function');
-    });
-
-    it('checks every element on a list', function () {
-      var spy = sinon.spy();
-      _.map([1, 2, 3], spy);
-      expect(spy.callCount).to.eql(3);
-      _.map({1: 1, 2: 2, 3: 3}, spy);
-      expect(spy.callCount).to.eql(6);
-    });
-
-    it('returns a mapped list', function () {
-      var spy = function(n) { return n + 1; };
-      var map = _.map([1, 2, 3], spy);
-      expect(map).to.eql([2, 3, 4]);
-      map = _.map({one: 1, two: 2, three: 3}, spy);
-      expect(map).to.eql([2, 3, 4]);
-    });
   });
 
   describe('#pluck', function () {
