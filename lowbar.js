@@ -138,8 +138,6 @@ _.reject = function(list, predicate) {
 };
 
 _.uniq = function(arr, isSorted, iteratee) {
-  if (!Array.isArray(arr)) { return []; }
-
   if (iteratee === undefined && typeof isSorted === 'function') {
     iteratee = isSorted;
     isSorted = false;
@@ -174,10 +172,12 @@ _.uniq = function(arr, isSorted, iteratee) {
   function getComparable(val, i, arr) {
     return iteratee ? iteratee(val, i, arr) : val;
   }
-
-  for (let i = 0; i < arr.length; i++) {
-    if (!hasBeenSeen(arr[i], i, arr)) {
-      res.push(arr[i]);
+  
+  if (Array.isArray(arr)) {
+    for (let i = 0; i < arr.length; i++) {
+      if (!hasBeenSeen(arr[i], i, arr)) {
+        res.push(arr[i]);
+      }
     }
   }
 
