@@ -215,22 +215,25 @@ _.pluck = function(list, prop) {
 };
 
 _.reduce = function(list, iteratee, memo, context) {
-  if (!Array.isArray(list) && typeof list !== 'object') return;
-  
   let i = 0;
 
   context = context || this;
 
   if (Array.isArray(list)) {
-    memo = memo || list[i] || 0;
+    if (memo === undefined) {
+      memo = list[i];
+    }
 
     for (i; i < list.length; i++) {
       memo = iteratee.call(context, memo, list[i], i, list);  
     }
-  } else {
+  } else if (typeof list === 'object') {
     let keys = Object.keys(list);
-    memo = memo || list[keys[0]] || 0;
-
+    
+    if (memo === undefined) {
+      memo = list[keys[i]];
+    }
+    
     for (i; i < keys.length; i++) {
       memo = iteratee.call(context, memo, list[keys[i]], i, list);
     }
