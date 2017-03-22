@@ -222,20 +222,23 @@ _.pluck = function(list, prop) {
   return res;
 };
 
-_.reduce = function(list, fun, memo) {
+_.reduce = function(list, iteratee, memo, context) {
+  if (!Array.isArray(list) && typeof list !== 'object') return;
   if (!memo || memo === 0) { memo = 0; }
   
-  var i = 0;
+  let i = 0;
+
+  context = context || this;
 
   if (Array.isArray(list)) {
     for (i; i < list.length; i++) {
-      memo = fun(memo, list[i], i, list);  
+      memo = iteratee.call(context, memo, list[i], i, list);  
     }
   } else {
-    keys = Object.keys(list);
+    let keys = Object.keys(list);
 
     for (i; i < keys.length; i++) {
-      memo = fun(memo, list[keys[i]], i, list);
+      memo = iteratee.call(context, memo, list[keys[i]], i, list);
     }
   }
 

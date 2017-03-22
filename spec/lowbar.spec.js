@@ -11,27 +11,7 @@ describe('_', function () {
     expect(_).to.be.an('object');
   });
 
-  describe('#reduce', function () {
-    it('is a function', function() {
-      expect(_.reduce).to.be.a('function');
-    });
-
-    it('iterate through every element', function () {
-      var spy = function(acc, n) { return acc, n; };
-      var reduce = _.reduce([1, 2, 3], spy, 0);
-      expect(reduce).to.eql(3);
-    });
-    
-    it('returns what is ask to do', function () {
-      var spy = function(acc, n) { acc.push(n + 2) ; return acc; };
-      var reduce = _.reduce([1, 2, 3], spy, []);
-      expect(reduce).to.eql([3, 4, 5]);
-      spy = function(acc, n) { acc[n] = 1 ; return acc; };
-      reduce = _.reduce([1, 2, 3], spy, {});
-      expect(reduce).to.eql({1: 1, 2: 1, 3: 1});
-    });
-  });
-
+ 
   describe('#contains', function () {    
     it('is a function', function() {
       expect(_.contains).to.be.a('function');
