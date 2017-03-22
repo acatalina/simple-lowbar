@@ -39,11 +39,8 @@ describe('#each', function () {
   });
 
   it('binds the iteratee to the context given', function() {
-    let expected = [1];
-    let contextPushed = [];
-    let context = [2];
-    let actual = _.each(expected, function(e){ contextPushed.push(this)}, context);
-    expect(actual).to.equal(expected);
-    expect(contextPushed).to.eql([[2]]);
+    let spy = sinon.spy();
+    _.each([1, 2, 3], spy, [2, 3, 4]);
+    expect(spy.thisValues[0]).to.eql([2, 3, 4]);
   });
 });
