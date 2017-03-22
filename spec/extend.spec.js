@@ -14,27 +14,27 @@ describe('#extend', function () {
   });
 
   it('copies the properties of the source object into the target object', function () {
-    let actual = _.extend({}, {name: 'Sam', age: 20});
-    let expected = {name: 'Sam', age: 20};
+    let actual = _.extend({}, {name: 'foo', age: 20});
+    let expected = {name: 'foo', age: 20};
     expect(actual).to.eql(expected);
   });
   
   it('overwrites existing properties', function () {
-    let actual = _.extend({name: 'Joe'}, {name: 'Sam', age: 20});
-    let expected = {name: 'Sam', age: 20};
+    let actual = _.extend({name: 'foo'}, {name: 'bar', age: 20});
+    let expected = {name: 'bar', age: 20};
     expect(actual).to.eql(expected);
   });
   
   it('copies properties from multiple source arguments', function () {
-    let actual = _.extend({name: 'Sam'}, {name: 'Joe'}, {name: 'Pepe', age: 99});
-    let expected = {name: 'Pepe', age: 99};
+    let actual = _.extend({name: 'foo'}, {name: 'bar'}, {name: 'baz', age: 99});
+    let expected = {name: 'baz', age: 99};
     expect(actual).to.eql(expected);
   });
   
   it('works for arrays', function () {
-    let actual = _.extend([1, 2, 3], [4, 5, 6], {name: 'Pepe'});
+    let actual = _.extend([1, 2, 3], [4, 5, 6], {name: 'foo'});
     let expected = [4, 5, 6];
-    expected.name = 'Pepe';
+    expected.name = 'foo';
     expect(actual).to.eql(expected);
   });
 });
