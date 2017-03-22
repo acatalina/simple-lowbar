@@ -11,28 +11,6 @@ describe('_', function () {
     expect(_).to.be.an('object');
   });
 
-  describe('#filter', function () {
-    it('is a function', function() {
-      expect(_.filter).to.be.a('function');
-    });
-
-    it('checks every element on a list', function () {
-      var spy = sinon.spy();
-      _.filter([1, 2, 3], spy);
-      expect(spy.callCount).to.eql(3);
-      _.filter({1: 1, 2: 2, 3: 3}, spy);
-      expect(spy.callCount).to.eql(6);
-    });
-
-    it('returns a filtered list', function () {
-      var spy = function(n) { return n < 3; };
-      var filter = _.filter([1, 2, 3], spy);
-      expect(filter).to.eql([1, 2]);
-      filter = _.filter({one: 1, two: 2, three: 3}, spy);
-      expect(filter).to.eql([1, 2]);
-    });
-  });
-
 describe('#reject', function () {
     it('is a function', function() {
       expect(_.reject).to.be.a('function');
