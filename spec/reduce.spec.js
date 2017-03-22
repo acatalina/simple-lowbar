@@ -27,8 +27,8 @@ describe('_.reduce', function() {
   
   it('returns the modified value according to the iteratee given', function() {
     let iteratee = function(acc, n) { 
-      acc.push(n + 2); 
-      return acc; 
+      acc.push(n + 2);
+      return acc;
     };
 
     let actual = _.reduce([1, 2, 3], iteratee, []);
@@ -47,6 +47,17 @@ describe('_.reduce', function() {
       3: 1
     };
     expect(actual).to.eql(expected);
+  });
+
+  it('takes the first element as a memo when no memo is given', function() {
+    let actual;
+    let expected = 1;
+    _.reduce([1, 2, 3], ((memo, elem) => { return actual = memo; }));
+    expect(actual).to.equal(expected);
+    actual;
+    expected = 2;
+    _.reduce({1: 2, 3: 4}, ((memo, elem) => { return actual = memo; }));
+    expect(actual).to.equal(expected);
   });
 
   it('binds the iteratee to the context given', function() {
