@@ -25,8 +25,6 @@ _.last = function(arr, n) {
 };
 
 _.each = function(list, iteratee, context) {
-  if (!Array.isArray(list) && typeof list !== 'object') return list;
-  
   let i = 0;
   
   context = context || this;
@@ -35,7 +33,7 @@ _.each = function(list, iteratee, context) {
     for (i; i < list.length; i++) {
       iteratee.call(context, list[i], i, list);
     }
-  } else {
+  } else if (typeof list === 'object') {
     let keys = Object.keys(list);
 
     for (i; i < keys.length; i++) {
