@@ -210,13 +210,13 @@ _.map = function(list, iteratee, context) {
 };
 
 _.pluck = function(list, prop) {
-  if (!Array.isArray(list)) return [];
-
   let i = 0;
   let res = [];
 
-  for (i; i < list.length; i++) {
-    res.push(list[i][prop]);
+  if (Array.isArray(list)) {
+    for (i; i < list.length; i++) {
+      res.push(list[i][prop]);
+    }
   }
 
   return res;
@@ -246,28 +246,27 @@ _.reduce = function(list, iteratee, memo, context) {
 };
 
 _.contains = function(list, value, fromIndex) {
-  var i = 0,
-      res = false;
+  let i = 0;
 
   if (Array.isArray(list)) {
-    if (fromIndex) { i = fromIndex }
+    i = fromIndex || i;
 
     for (i; i < list.length; i++) {
       if (list[i] === value) {
-        return res = true;
+        return true;
       }
     }
-  } else {
-    keys = Object.keys(list);
+  } else if (typeof list === 'object'){
+    let keys = Object.keys(list);
 
     for (i; i < keys.length; i++) {
       if (list[keys[i]] === value) {
-        return res = true;
+        return true;
       }
     }
   }
   
-  return res;
+  return false;
 };
 
 _.every = function(list, fun) {
