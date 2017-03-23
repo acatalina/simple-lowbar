@@ -48,25 +48,20 @@ _.indexOf = function(arr, val, isSorted) {
   if (!Array.isArray(arr) || !val) return -1;
 
   if (isSorted === true) {
-    let startIndex = 0;
     let prevIndex = 0;
     let endIndex = arr.length;
-    let midIndex = Math.floor(endIndex / 2);
+    let midIndex;
 
-    while ( (arr[midIndex] !== val) && (prevIndex / midIndex !== 1) ) {
+    while (prevIndex < endIndex) {
+      midIndex = Math.floor((prevIndex + endIndex) / 2);
+      
       if (arr[midIndex] > val) {
         endIndex = midIndex;
-        prevIndex = midIndex;
-        midIndex -= (midIndex - startIndex) / 2;
-        midIndex = Math.floor(midIndex);
       } else {
-        startIndex = midIndex;
-        prevIndex = midIndex;
-        midIndex += (endIndex - midIndex) / 2;
-        midIndex = Math.floor(midIndex);
+        prevIndex = midIndex + 1;
       }
     }
-
+    
     return arr[midIndex] === val ? midIndex : -1;
   } else {
     isSorted = isSorted || 0;
