@@ -101,7 +101,7 @@ _.filter = function(list, predicate, context) {
   return res;
 };
 
-_.reject = function(list, predicate) {
+_.reject = function(list, predicate, context) {
   let i = 0;
   let res = [];
 
@@ -111,7 +111,7 @@ _.reject = function(list, predicate) {
     for (i; i < list.length; i++) {
       if (!predicate.call(context, list[i], i , list)) {
         res.push(list[i]);
-      };
+      }
     }
   } else if (typeof list === 'object') {
     let keys = Object.keys(list);
@@ -148,7 +148,7 @@ _.uniq = function(arr, isSorted, iteratee) {
   }
 
   function hasBeenSeenUnsorted(val, i, arr) {
-    val = getComparable(val);
+    val = getComparable(val, i, arr);
 
     if (seen.indexOf(val) > -1) {
       return true;
@@ -328,12 +328,12 @@ _.extend = function(destination, source) {
   }
 
   return destination;
-}
+};
 
 _.defaults = function(object, defaults) {
   for (let i = 1; i < arguments.length; i++) {
     defaults = arguments[i];
-    keys = Object.keys(defaults);
+    let keys = Object.keys(defaults);
     
     for (let j = 0; j < keys.length; j++) {
       if (!object[keys[j]]) {

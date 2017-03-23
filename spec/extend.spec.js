@@ -3,7 +3,7 @@ const path = require('path');
 const expect = require('chai').expect;
 const _ = require(path.join(__dirname, '..', './lowbar.js'));
 
-describe('#extend', function() {    
+describe('_.extend', function() {    
   it('is a function',function(){
     expect(_.extend).to.be.a('function')
   });

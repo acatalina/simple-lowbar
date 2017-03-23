@@ -3,7 +3,7 @@ const path = require('path');
 const expect = require('chai').expect;
 const _ = require(path.join(__dirname, '..', './lowbar.js'));
 
-describe('#defaults', function() {    
+describe('_.defaults', function() {    
   it('is a function', function() {
     expect(_.defaults).to.be.a('function');
   });
