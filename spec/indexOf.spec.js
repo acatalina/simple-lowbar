@@ -31,6 +31,26 @@ describe('_.indexOf', function() {
     expect(actual).to.be.equal(expected);
   });
 
+  it('returns the correct value using binary search', function () {
+    let actual = _.indexOf([1, 2, 3], 1);
+    let expected = 0;
+    expect(actual).to.be.equal(expected);
+    
+    actual = _.indexOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 4, true);
+    expected = 3;
+    expect(actual).to.be.equal(expected);
+  });
+
+  it('returns -1 one when value is not found using binary search', function () {
+    let actual = _.indexOf([1, 2, 3], 4);
+    let expected = -1;
+    expect(actual).to.be.equal(expected);
+    
+    actual = _.indexOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], -1, true);
+    expected = -1;
+    expect(actual).to.be.equal(expected);
+  });
+
   it('performs a quicker search if true as third argument is given', function() {
     let data = range(1000000);
     let start, end, selectionTime, binaryTime;

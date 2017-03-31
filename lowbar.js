@@ -52,7 +52,7 @@ _.indexOf = function(arr, val, isSorted) {
     let endIndex = arr.length;
     let midIndex;
 
-    while (prevIndex < endIndex) {
+    while (prevIndex < endIndex && arr[midIndex] !== val) {
       midIndex = Math.floor((prevIndex + endIndex) / 2);
       
       if (arr[midIndex] > val) {
