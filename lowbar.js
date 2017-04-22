@@ -1,5 +1,20 @@
 var _ = {};
 
+_.getIteratee = function getIteratee(method) {
+  switch (typeof method) {
+    case 'function':
+      return method;
+    case 'string':
+      return function(elem) {
+        return elem[method];
+      };
+    default: 
+      return function(elem) {
+        return elem;
+      };
+  }
+};
+
 _.identity = function() {
   return arguments[0];
 };
@@ -25,19 +40,18 @@ _.last = function(arr, n) {
 };
 
 _.each = function(list, iteratee, context) {
+  let func = _.getIteratee(iteratee).bind(context)
   let i = 0;
-  
-  context = context || this;
   
   if (Array.isArray(list)) {
     for (i; i < list.length; i++) {
-      iteratee.call(context, list[i], i, list);
+      func(list[i], i, list);
     }
   } else if (typeof list === 'object') {
     let keys = Object.keys(list);
 
     for (i; i < keys.length; i++) {
-      iteratee.call(context, list[keys[i]], keys[i], list);
+      func(list[keys[i]], keys[i], list);
     }
   }
 
@@ -77,14 +91,13 @@ _.indexOf = function(arr, val, isSorted) {
 };
 
 _.filter = function(list, predicate, context) {
+  let iteratee = _.getIteratee(predicate).bind(context);
   let i = 0;
   let res = [];
 
-  context = context || this;
-
   if (Array.isArray(list)) {
     for (i; i < list.length; i++) {
-      if (predicate.call(context, list[i], i , list)) {
+      if (iteratee(list[i], i , list)) {
         res.push(list[i]);
       };
     }
@@ -92,7 +105,7 @@ _.filter = function(list, predicate, context) {
     let keys = Object.keys(list);
 
     for (i; i < keys.length; i++) {
-      if (predicate.call(context, list[keys[i]], keys[i], list)) {
+      if (iteratee(list[keys[i]], keys[i], list)) {
         res.push(list[keys[i]]);
       }
     }
@@ -102,14 +115,13 @@ _.filter = function(list, predicate, context) {
 };
 
 _.reject = function(list, predicate, context) {
+  let iteratee = _.getIteratee(predicate).bind(context);
   let i = 0;
   let res = [];
 
-  context = context || this;
-
   if (Array.isArray(list)) {
     for (i; i < list.length; i++) {
-      if (!predicate.call(context, list[i], i , list)) {
+      if (!iteratee(list[i], i , list)) {
         res.push(list[i]);
       }
     }
@@ -117,7 +129,7 @@ _.reject = function(list, predicate, context) {
     let keys = Object.keys(list);
 
     for (i; i < keys.length; i++) {
-      if (!predicate.call(context, list[keys[i]], keys[i], list)) {
+      if (!iteratee(list[keys[i]], keys[i], list)) {
         res.push(list[keys[i]]);
       }
     }
@@ -174,21 +186,20 @@ _.uniq = function(arr, isSorted, iteratee) {
 };
 
 _.map = function(list, iteratee, context) {
+  let func = _.getIteratee(iteratee).bind(context);
   let i = 0;
   let res = [];
 
-  context = context || this;
-
   if (Array.isArray(list)) {
     for (i; i < list.length; i++) {
-      let transformed = iteratee.call(context, list[i], i , list);
+      let transformed = func(list[i], i , list);
       res.push(transformed);
     }
   } else if (typeof list === 'object') {
     let keys = Object.keys(list);
 
     for (i; i < keys.length; i++) {
-      let transformed = iteratee.call(context, list[keys[i]], keys[i], list);
+      let transformed = func(list[keys[i]], keys[i], list);
       res.push(transformed);
     }
   }
@@ -210,9 +221,8 @@ _.pluck = function(list, prop) {
 };
 
 _.reduce = function(list, iteratee, memo, context) {
+  let func = _.getIteratee(iteratee).bind(context);
   let i = 0;
-
-  context = context || this;
 
   if (Array.isArray(list)) {
     if (memo === undefined) {
@@ -220,7 +230,7 @@ _.reduce = function(list, iteratee, memo, context) {
     }
 
     for (i; i < list.length; i++) {
-      memo = iteratee.call(context, memo, list[i], i, list);  
+      memo = func(memo, list[i], i, list);  
     }
   } else if (typeof list === 'object') {
     let keys = Object.keys(list);
@@ -230,7 +240,7 @@ _.reduce = function(list, iteratee, memo, context) {
     }
     
     for (i; i < keys.length; i++) {
-      memo = iteratee.call(context, memo, list[keys[i]], i, list);
+      memo = func(memo, list[keys[i]], i, list);
     }
   }
 
@@ -262,14 +272,13 @@ _.contains = function(list, value, fromIndex) {
 };
 
 _.every = function(list, predicate, context) {
+  let iteratee = _.getIteratee(predicate).bind(context);
   let i = 0;
   let res = true;
 
-  context = context || this;
-
   if (Array.isArray(list)) {
     for (i; i < list.length; i++) {
-      if (!predicate.call(context, list[i], i, list)) {
+      if (!iteratee(list[i], i, list)) {
         res = false;
         break;
       }
@@ -278,7 +287,7 @@ _.every = function(list, predicate, context) {
     let keys = Object.keys(list);
 
     for (i; i < keys.length; i++) {
-      if (!predicate.call(context, list[keys[i]], keys[i], list)) {
+      if (!iteratee(list[keys[i]], keys[i], list)) {
         res = false;
         break;
       }
@@ -289,14 +298,13 @@ _.every = function(list, predicate, context) {
 };
 
 _.some = function(list, predicate, context) {
+  let iteratee = _.getIteratee(predicate).bind(context);
   let i = 0;
   let res = false;
 
-  context = context || this;
-
   if (Array.isArray(list)) {
     for (i; i < list.length; i++) {
-      if (predicate.call(context, list[i], i, list)) {
+      if (iteratee(list[i], i, list)) {
         res = true;
         break;
       }
@@ -305,7 +313,7 @@ _.some = function(list, predicate, context) {
     let keys = Object.keys(list);
 
     for (i; i < keys.length; i++) {
-      if (predicate.call(context, list[keys[i]], keys[i], list)) {
+      if (iteratee(list[keys[i]], keys[i], list)) {
         res = true;
         break;
       }
